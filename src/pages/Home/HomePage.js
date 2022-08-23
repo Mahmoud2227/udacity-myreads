@@ -5,7 +5,11 @@ import Shelf from "../../components/Shelf/Shelf";
 
 import "./homePage.css";
 
-const HomePage = () => {
+const HomePage = ({books}) => {
+	const currentlyReading = books.filter((book) => book.shelf === "currentlyReading");
+	const wantToRead = books.filter((book) => book.shelf === "wantToRead");
+	const read = books.filter((book) => book.shelf === "read");
+
 	return (
 		<>
 			<div className='list-books'>
@@ -14,9 +18,9 @@ const HomePage = () => {
 				</div>
 				<div className='list-books-content'>
 					<div>
-						<Shelf title='Currently Reading' />
-						<Shelf title='Want to Read' />
-						<Shelf title='Read' />
+						<Shelf title='Currently Reading' books={currentlyReading} type='currentlyReading' />
+						<Shelf title='Want to Read' books={wantToRead} type='wantToRead' />
+						<Shelf title='Read' books={read} type='read' />
 					</div>
 				</div>
 			</div>

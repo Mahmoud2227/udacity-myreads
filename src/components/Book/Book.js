@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Book.css"
 
-const Book = ({title, authors, coverUrl}) => {
+const Book = ({title, authors, coverUrl,shelf}) => {
 	return (
 		<div className='book'>
 			<div className='book-top'>
@@ -14,7 +14,7 @@ const Book = ({title, authors, coverUrl}) => {
 						backgroundImage: `url("${coverUrl}")`,
 					}}></div>
 				<div className='book-shelf-changer'>
-					<select>
+					<select defaultValue={shelf} >
 						<option value='none' disabled>
 							Move to...
 						</option>
