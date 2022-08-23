@@ -15,7 +15,7 @@ const Book = ({title, authors, coverUrl,shelf}) => {
 					}}></div>
 				<div className='book-shelf-changer'>
 					<select defaultValue={shelf} >
-						<option value='none' disabled>
+						<option disabled>
 							Move to...
 						</option>
 						<option value='currentlyReading'>Currently Reading</option>
