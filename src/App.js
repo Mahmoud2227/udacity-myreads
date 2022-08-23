@@ -1,28 +1,33 @@
-import {useState,useEffect} from "react";
+import {useState, useEffect} from "react";
 import {Routes, Route} from "react-router-dom";
 
 import HomePage from "./pages/Home/HomePage";
 import SearchPage from "./pages/Search/SearchPage";
-import {getAll} from "./BooksAPI"
+import {getAll, update} from "./BooksAPI";
 
 import "./App.css";
 
 function App() {
 	const [books, setBooks] = useState([]);
-	
+
 	useEffect(() => {
 		const fetchBooks = async () => {
 			const result = await getAll();
 			setBooks(result);
-			console.log(result);
-		}
+		};
 		fetchBooks();
-	},[])
+	}, []);
+
+	const onUpdateBook = async (id, shelf) => {
+		await update({id}, shelf);
+		const result = await getAll();
+		setBooks(result);
+	};
 	return (
 		<div className='app'>
 			<Routes>
-				<Route path='/' element={<HomePage books={books} />} />
-				<Route path='/search' element={<SearchPage/>} />
+				<Route path='/' element={<HomePage books={books} onUpdateBook={onUpdateBook} />} />
+				<Route path='/search' element={<SearchPage onUpdateBook={onUpdateBook} />} />
 			</Routes>
 		</div>
 	);

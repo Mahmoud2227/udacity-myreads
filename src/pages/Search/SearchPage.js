@@ -6,7 +6,7 @@ import {search} from "../../BooksAPI";
 
 import "./searchPage.css";
 
-const SearchPage = () => {
+const SearchPage = ({onUpdateBook}) => {
 	const [searchResults, setSearchResults] = useState([]);
 
 	const inputChangeHandler = async (e) => {
@@ -30,14 +30,16 @@ const SearchPage = () => {
 			</div>
 			<div className='search-books-results'>
 				<ol className='books-grid'>
-					{searchResults &&
+					{!searchResults.error &&
 						searchResults.map((book) => (
 							<li key={book.id}>
 								<Book
+									id={book.id}
 									title={book.title}
-									authors={book.authors?book.authors.join(" ") : ""}
+									authors={book.authors ? book.authors.join(" ") : ""}
 									coverUrl={book.imageLinks.thumbnail}
 									shelf='none'
+									onUpdateBook={onUpdateBook}
 								/>
 							</li>
 						))}

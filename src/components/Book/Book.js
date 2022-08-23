@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./Book.css"
+import "./Book.css";
 
-const Book = ({title, authors, coverUrl,shelf}) => {
+const Book = ({id, title, authors, coverUrl, shelf, onUpdateBook}) => {
 	return (
 		<div className='book'>
 			<div className='book-top'>
@@ -14,10 +14,8 @@ const Book = ({title, authors, coverUrl,shelf}) => {
 						backgroundImage: `url("${coverUrl}")`,
 					}}></div>
 				<div className='book-shelf-changer'>
-					<select defaultValue={shelf} >
-						<option disabled>
-							Move to...
-						</option>
+					<select defaultValue={shelf} onChange={(e) => onUpdateBook(id, e.target.value)}>
+						<option disabled>Move to...</option>
 						<option value='currentlyReading'>Currently Reading</option>
 						<option value='wantToRead'>Want to Read</option>
 						<option value='read'>Read</option>
