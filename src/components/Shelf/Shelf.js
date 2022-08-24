@@ -15,7 +15,11 @@ const Shelf = ({title, books, type, onUpdateBook}) => {
 								id={book.id}
 								title={book.title}
 								authors={book.authors.join(" ")}
-								coverUrl={book.imageLinks.thumbnail}
+								coverUrl={
+									book.imageLinks
+										? book.imageLinks.thumbnail
+										: "https://via.placeholder.com/128x193.png?text=no+thumbnail"
+								}
 								shelf={type}
 								onUpdateBook={onUpdateBook}
 							/>

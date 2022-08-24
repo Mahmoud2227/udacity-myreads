@@ -27,7 +27,7 @@ function App() {
 		<div className='app'>
 			<Routes>
 				<Route path='/' element={<HomePage books={books} onUpdateBook={onUpdateBook} />} />
-				<Route path='/search' element={<SearchPage onUpdateBook={onUpdateBook} />} />
+				<Route path='/search' element={<SearchPage onUpdateBook={onUpdateBook} books={books} />} />
 			</Routes>
 		</div>
 	);

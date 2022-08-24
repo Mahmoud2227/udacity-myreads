@@ -6,12 +6,16 @@ import {search} from "../../BooksAPI";
 
 import "./searchPage.css";
 
-const SearchPage = ({onUpdateBook}) => {
+const SearchPage = ({onUpdateBook, books}) => {
 	const [searchResults, setSearchResults] = useState([]);
 
 	const inputChangeHandler = async (e) => {
-		const result = await search(e.target.value);
-		setSearchResults(result);
+		if (e.target.value.length > 0) {
+			const result = await search(e.target.value);
+			setSearchResults(result);
+		} else {
+			setSearchResults([]);
+		}
 	};
 
 	return (
@@ -31,18 +35,25 @@ const SearchPage = ({onUpdateBook}) => {
 			<div className='search-books-results'>
 				<ol className='books-grid'>
 					{!searchResults.error &&
-						searchResults.map((book) => (
-							<li key={book.id}>
-								<Book
-									id={book.id}
-									title={book.title}
-									authors={book.authors ? book.authors.join(" ") : ""}
-									coverUrl={book.imageLinks.thumbnail}
-									shelf='none'
-									onUpdateBook={onUpdateBook}
-								/>
-							</li>
-						))}
+						searchResults.map((book) => {
+							const existedBook = books.find((b) => b.id === book.id);
+							return (
+								<li key={book.id}>
+									<Book
+										id={book.id}
+										title={book.title}
+										authors={book.authors ? book.authors.join(" ") : ""}
+										coverUrl={
+											book.imageLinks
+												? book.imageLinks.thumbnail
+												: "https://via.placeholder.com/128x193.png?text=no+thumbnail"
+										}
+										shelf={existedBook ? existedBook.shelf : "none"}
+										onUpdateBook={onUpdateBook}
+									/>
+								</li>
+							);
+						})}
 				</ol>
 			</div>
 		</div>
